@@ -5,7 +5,7 @@ const postsReducer = (posts = [], action) => {
     case actions.FETCH_ALL:
       return [...posts, action.payload]
     case actions.CREATE_POST:
-      return posts
+      return [...posts, action.payload]
     default:
       return posts
   }
