@@ -1,7 +1,5 @@
 import * as api from '../../api'
-
-export const FETCH_ALL = 'FETCH_ALL'
-export const CREATE_POST = 'CREATE_POST'
+import { FETCH_ALL, CREATE_POST, UPDATE_POST } from '../types/postTypes'
 
 export const getPosts = () => async (dispatch) => {
   try {
@@ -16,6 +14,15 @@ export const createPost = (post) => async (dispatch) => {
   try {
     const { data } = await api.createPost(post)
     dispatch({ type: CREATE_POST, payload: data })
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export const updatePost = (id, post) => async (dispatch) => {
+  try {
+    const { data } = await api.updatePost(id, post)
+    dispatch({ type: UPDATE_POST, payload: data })
   } catch (error) {
     console.log(error.message)
   }

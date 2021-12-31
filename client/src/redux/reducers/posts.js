@@ -1,11 +1,15 @@
-import * as actions from '../actions/posts'
+import { FETCH_ALL, CREATE_POST, UPDATE_POST } from '../types/postTypes'
 
 const postsReducer = (posts = [], action) => {
   switch (action.type) {
-    case actions.FETCH_ALL:
+    case FETCH_ALL:
+      return action.payload
+    case CREATE_POST:
       return [...posts, action.payload]
-    case actions.CREATE_POST:
-      return [...posts, action.payload]
+    case UPDATE_POST:
+      return posts.map((post) =>
+        post._id === action.payload._id ? action.payload : post
+      )
     default:
       return posts
   }
