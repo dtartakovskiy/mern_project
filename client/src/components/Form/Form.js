@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { createPost, updatePost } from '../../redux/actions/posts'
 import useStyles from './styles'
 
-const Form = ({ currentId }) => {
+const Form = ({ currentId, setCurrentId }) => {
   const { root, paper, form, fileInput, buttonSubmit } = useStyles()
   const dispatch = useDispatch()
   const post = useSelector((state) =>
@@ -24,6 +24,18 @@ const Form = ({ currentId }) => {
     if (post) setPostData(post)
   }, [post])
 
+  const clear = () => {
+    setPostData({
+      creator: '',
+      title: '',
+      message: '',
+      tags: '',
+      selectedFile: '',
+    })
+
+    setCurrentId(null)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (currentId) {
@@ -31,9 +43,8 @@ const Form = ({ currentId }) => {
     } else {
       dispatch(createPost(postData))
     }
+    clear()
   }
-
-  const clear = () => {}
 
   return (
     <Paper className={paper}>
@@ -43,7 +54,9 @@ const Form = ({ currentId }) => {
         className={`${root} ${form}`}
         onSubmit={handleSubmit}
       >
-        <Typography variant='h6'>Creating a Memory</Typography>
+        <Typography variant='h6'>
+          {currentId ? 'Editing' : 'Creating'} a Memory
+        </Typography>
         <TextField
           name='creator'
           variant='outlined'
@@ -103,7 +116,7 @@ const Form = ({ currentId }) => {
           variant='contained'
           color='secondary'
           size='small'
-          type='submit'
+          type='button'
           fullWidth
           onClick={clear}
         >
