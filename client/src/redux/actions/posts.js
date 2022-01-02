@@ -4,7 +4,8 @@ import {
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
-} from '../types/postTypes'
+  LIKE_POST,
+} from '../actionTypes/posts'
 
 export const getPosts = () => async (dispatch) => {
   try {
@@ -39,6 +40,15 @@ export const deletePost = (id) => async (dispatch) => {
   try {
     await api.deletePost(id)
     dispatch({ type: DELETE_POST, payload: id })
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const likePost = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.likePost(id)
+    dispatch({ type: LIKE_POST, payload: data })
   } catch (error) {
     console.log(error)
   }

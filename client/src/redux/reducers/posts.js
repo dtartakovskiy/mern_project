@@ -3,7 +3,8 @@ import {
   CREATE_POST,
   UPDATE_POST,
   DELETE_POST,
-} from '../types/postTypes'
+  LIKE_POST,
+} from '../actionTypes/posts'
 
 const postsReducer = (posts = [], action) => {
   switch (action.type) {
@@ -14,6 +15,7 @@ const postsReducer = (posts = [], action) => {
     case CREATE_POST:
       return [...posts, action.payload]
     case UPDATE_POST:
+    case LIKE_POST:
       return posts.map((post) =>
         post._id === action.payload._id ? action.payload : post
       )

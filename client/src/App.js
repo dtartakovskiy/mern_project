@@ -10,7 +10,7 @@ import { getPosts } from './redux/actions/posts'
 import useStyles from './styles'
 
 const App = () => {
-  const { appBar, heading, image } = useStyles()
+  const { appBar, heading, image, mainContainer } = useStyles()
   const dispatch = useDispatch()
   const [currentId, setCurrentId] = useState(null)
 
@@ -33,6 +33,7 @@ const App = () => {
             justifyContent='space-between'
             alignItems='stretch'
             spacing={3}
+            className={mainContainer}
           >
             <Grid item xs={12} sm={7}>
               <Posts setCurrentId={setCurrentId} />
